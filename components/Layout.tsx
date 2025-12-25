@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Globe, Twitter, Linkedin, GraduationCap, ArrowRight } from 'lucide-react';
+import { Menu, X, Globe, Twitter, Linkedin, GraduationCap, ArrowRight, Sparkles } from 'lucide-react';
 import { CookieConsent } from './CookieConsent';
+import { NewsletterModal } from './NewsletterModal';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -24,16 +26,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
-              <Link to="/" className="hover:text-indigo-600 transition-colors">Blueprints</Link>
-              <Link to="/about" className="hover:text-indigo-600 transition-colors">Authority</Link>
-              <Link to="/contact" className="hover:text-indigo-600 transition-colors">Support</Link>
+              <Link to="/" className="hover:text-indigo-600 transition-colors">Scholarships</Link>
+              <Link to="/about" className="hover:text-indigo-600 transition-colors">About</Link>
+              <Link to="/contact" className="hover:text-indigo-600 transition-colors">Contact</Link>
               <div className="h-4 w-[1px] bg-gray-200"></div>
               <Link to="/admin" className="hover:text-indigo-600 text-gray-300">Portal</Link>
             </div>
 
             <div className="hidden lg:flex items-center gap-4">
-              <button className="bg-slate-900 text-white px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 flex items-center gap-2">
-                Join Network <ArrowRight size={14} />
+              <button 
+                onClick={() => setIsNewsletterOpen(true)}
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:from-indigo-700 hover:to-purple-700 transition-all shadow-xl shadow-indigo-200 flex items-center gap-2"
+              >
+                <Sparkles size={14} /> Join Network
               </button>
             </div>
 
@@ -49,12 +54,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="lg:hidden bg-white border-b border-gray-100 py-8 px-6 space-y-6 shadow-2xl animate-in fade-in slide-in-from-top-4">
-            <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Blueprints</Link>
-            <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Authority</Link>
-            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Support</Link>
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Scholarships</Link>
+            <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">About</Link>
+            <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Contact</Link>
             <hr className="border-gray-100" />
             <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="block text-gray-400 font-bold text-sm uppercase tracking-widest">Admin Portal</Link>
-            <button className="w-full bg-indigo-600 text-white px-5 py-4 rounded-2xl font-black shadow-xl shadow-indigo-100">Subscribe Now</button>
+            <button 
+              onClick={() => { setIsMenuOpen(false); setIsNewsletterOpen(true); }}
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-4 rounded-2xl font-black shadow-xl shadow-indigo-100 flex items-center justify-center gap-2"
+            >
+              <Sparkles size={18} /> Join the Network
+            </button>
           </div>
         )}
       </nav>
@@ -94,7 +104,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms" className="hover:text-indigo-600 transition-colors">Terms of Service</Link></li>
                 <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">Editorial Guidelines</Link></li>
-                <li><Link to="/about" className="hover:text-indigo-600 transition-colors uppercase text-[10px] tracking-widest">Verify Authority</Link></li>
+                <li><Link to="/about" className="hover:text-indigo-600 transition-colors">About Us</Link></li>
               </ul>
             </div>
 
@@ -128,6 +138,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
       </footer>
       <CookieConsent />
+      <NewsletterModal isOpen={isNewsletterOpen} onClose={() => setIsNewsletterOpen(false)} />
     </div>
   );
 };
