@@ -76,15 +76,15 @@ export const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* Floating Stats */}
+        {/* Floating Stats - Dynamic and accurate for AdSense compliance */}
         <div className="absolute bottom-12 right-12 hidden lg:flex gap-12 bg-white/5 backdrop-blur-2xl p-8 rounded-[2rem] border border-white/10">
           <div className="text-center">
-            <p className="text-indigo-400 text-4xl font-black mb-1">30+</p>
-            <p className="text-white text-[10px] font-bold uppercase tracking-widest">Active Guides</p>
+            <p className="text-indigo-400 text-4xl font-black mb-1">{posts.length}</p>
+            <p className="text-white text-[10px] font-bold uppercase tracking-widest">Scholarship Guides</p>
           </div>
           <div className="text-center">
-            <p className="text-cyan-400 text-4xl font-black mb-1">100%</p>
-            <p className="text-white text-[10px] font-bold uppercase tracking-widest">Fully Funded</p>
+            <p className="text-cyan-400 text-4xl font-black mb-1">{CATEGORIES.length}</p>
+            <p className="text-white text-[10px] font-bold uppercase tracking-widest">Funding Regions</p>
           </div>
         </div>
       </section>
