@@ -1,14 +1,38 @@
 
-import React from 'react';
-import { Mail, MapPin, Send, HelpCircle, FileText, Briefcase } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, MapPin, Send, HelpCircle, FileText, Briefcase, Loader2 } from 'lucide-react';
+import { submitContactForm } from '../services/emailService';
 
 export const Contact: React.FC = () => {
-  const [submitted, setSubmitted] = React.useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    inquiryType: 'Scholarship Eligibility Question',
+    message: ''
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsLoading(true);
+
+    // Simulate network delay
+    setTimeout(() => {
+      const result = submitContactForm(
+        formData.name,
+        formData.email,
+        formData.inquiryType,
+        formData.message
+      );
+
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', inquiryType: 'Scholarship Eligibility Question', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      }
+      setIsLoading(false);
+    }, 500);
   };
 
   return (
@@ -69,16 +93,34 @@ export const Contact: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
-                  <input required type="text" className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold" placeholder="Your name" />
+                  <input 
+                    required 
+                    type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold" 
+                    placeholder="Your name" 
+                  />
                 </div>
                 <div className="space-y-3">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
-                  <input required type="email" className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold" placeholder="your@email.com" />
+                  <input 
+                    required 
+                    type="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold" 
+                    placeholder="your@email.com" 
+                  />
                 </div>
               </div>
               <div className="space-y-3">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Inquiry Type</label>
-                <select className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold">
+                <select 
+                  value={formData.inquiryType}
+                  onChange={(e) => setFormData({...formData, inquiryType: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold"
+                >
                   <option>Scholarship Eligibility Question</option>
                   <option>Data Correction / Update</option>
                   <option>Advertising & Partnership</option>
@@ -87,10 +129,28 @@ export const Contact: React.FC = () => {
               </div>
               <div className="space-y-3">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Message Detail</label>
-                <textarea required rows={5} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold resize-none" placeholder="How can we help you with your scholarship journey?"></textarea>
+                <textarea 
+                  required 
+                  rows={5} 
+                  value={formData.message}
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all font-bold resize-none" 
+                  placeholder="How can we help you with your scholarship journey?"
+                ></textarea>
               </div>
-              <button type="submit" className="w-full bg-indigo-600 text-white font-black py-5 rounded-2xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 text-sm uppercase tracking-widest">
-                Send Inquiry
+              <button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full bg-indigo-600 text-white font-black py-5 rounded-2xl hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 text-sm uppercase tracking-widest disabled:opacity-70 flex items-center justify-center gap-2"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={18} />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Inquiry'
+                )}
               </button>
             </form>
           )}

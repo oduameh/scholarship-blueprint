@@ -1,14 +1,44 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, User, ChevronRight, TrendingUp, Zap, GraduationCap, Award, BookOpen } from 'lucide-react';
+import { Clock, User, ChevronRight, TrendingUp, Zap, GraduationCap, Award, BookOpen, CheckCircle, Loader2 } from 'lucide-react';
 import { MOCK_POSTS, CATEGORIES } from '../constants';
 import { AdPlaceholder } from '../components/AdPlaceholder';
 import { Post } from '../types';
+import { subscribeToNewsletter } from '../services/emailService';
 
 export const Home: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [newsletterMessage, setNewsletterMessage] = useState('');
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+
+    setNewsletterStatus('loading');
+    
+    // Simulate network delay for better UX
+    setTimeout(() => {
+      const result = subscribeToNewsletter(newsletterEmail, 'homepage');
+      if (result.success) {
+        setNewsletterStatus('success');
+        setNewsletterMessage(result.message);
+        setNewsletterEmail('');
+      } else {
+        setNewsletterStatus('error');
+        setNewsletterMessage(result.message);
+      }
+
+      // Reset after 5 seconds
+      setTimeout(() => {
+        setNewsletterStatus('idle');
+        setNewsletterMessage('');
+      }, 5000);
+    }, 500);
+  };
 
   useEffect(() => {
     const userPostsJson = localStorage.getItem('user_posts');
@@ -139,12 +169,41 @@ export const Home: React.FC = () => {
                   <GraduationCap size={40} className="mb-6 opacity-80" />
                   <h3 className="text-3xl font-black mb-4 leading-tight">Join the Scholar List</h3>
                   <p className="text-indigo-100 text-sm mb-8 leading-relaxed font-medium">Get real-time alerts when portals open for Chevening, DAAD, and more.</p>
-                  <form className="space-y-4">
-                    <input type="email" placeholder="Your best email" className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-4 text-sm placeholder:text-indigo-200 outline-none focus:ring-2 focus:ring-white/50" />
-                    <button className="w-full bg-white text-indigo-600 font-black py-4 rounded-2xl shadow-xl hover:bg-indigo-50 transition-all">
-                      Subscribe for Free
-                    </button>
-                  </form>
+                  
+                  {newsletterStatus === 'success' ? (
+                    <div className="bg-white/20 rounded-2xl p-6 text-center">
+                      <CheckCircle className="mx-auto mb-3" size={32} />
+                      <p className="font-bold">{newsletterMessage}</p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+                      <input 
+                        type="email" 
+                        value={newsletterEmail}
+                        onChange={(e) => setNewsletterEmail(e.target.value)}
+                        placeholder="Your best email" 
+                        required
+                        className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-4 text-sm placeholder:text-indigo-200 outline-none focus:ring-2 focus:ring-white/50" 
+                      />
+                      {newsletterStatus === 'error' && (
+                        <p className="text-red-200 text-xs font-medium">{newsletterMessage}</p>
+                      )}
+                      <button 
+                        type="submit"
+                        disabled={newsletterStatus === 'loading'}
+                        className="w-full bg-white text-indigo-600 font-black py-4 rounded-2xl shadow-xl hover:bg-indigo-50 transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+                      >
+                        {newsletterStatus === 'loading' ? (
+                          <>
+                            <Loader2 className="animate-spin" size={18} />
+                            Subscribing...
+                          </>
+                        ) : (
+                          'Subscribe for Free'
+                        )}
+                      </button>
+                    </form>
+                  )}
                 </div>
               </div>
 

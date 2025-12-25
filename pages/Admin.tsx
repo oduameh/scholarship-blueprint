@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { LogIn, Plus, Trash2, Edit, Save, Sparkles, LayoutDashboard, LogOut, AlertCircle, Clock, MapPin, DollarSign, Shield, Eye, AlertTriangle, RefreshCw, Megaphone, CheckCircle, XCircle, ExternalLink } from 'lucide-react';
+import { LogIn, Plus, Trash2, Edit, Save, Sparkles, LayoutDashboard, LogOut, AlertCircle, Clock, MapPin, DollarSign, Shield, Eye, AlertTriangle, RefreshCw, Megaphone, CheckCircle, XCircle, ExternalLink, Mail, Users, MessageSquare, Download, Check } from 'lucide-react';
 import { CATEGORIES } from '../constants';
 import { generateBlogTopic, generateFullPost, isGeminiError } from '../services/geminiService';
 import { getAdSlotStatus } from '../components/AdPlaceholder';
+import { getEmailStats, getNewsletterSubscribers, getContactSubmissions, deleteSubscriber, deleteContactSubmission, markContactAsRead, markContactAsReplied, exportSubscribersCSV, NewsletterSubscriber, ContactSubmission } from '../services/emailService';
 import { Post } from '../types';
 
 interface SuspiciousLog {
@@ -28,8 +29,11 @@ export const Admin: React.FC = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'posts' | 'traffic' | 'adsense'>('posts');
+  const [activeTab, setActiveTab] = useState<'posts' | 'traffic' | 'adsense' | 'emails'>('posts');
   const [suspiciousLogs, setSuspiciousLogs] = useState<SuspiciousLog[]>([]);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
+  const [contacts, setContacts] = useState<ContactSubmission[]>([]);
+  const [emailStats, setEmailStats] = useState({ totalSubscribers: 0, activeSubscribers: 0, totalContacts: 0, unreadContacts: 0, subscribersThisWeek: 0 });
 
   const [newPost, setNewPost] = useState<Partial<Post>>({
     title: '',
@@ -56,7 +60,51 @@ export const Admin: React.FC = () => {
 
     // Load suspicious traffic logs
     loadTrafficLogs();
+    
+    // Load email data
+    loadEmailData();
   }, []);
+
+  const loadEmailData = () => {
+    setSubscribers(getNewsletterSubscribers());
+    setContacts(getContactSubmissions());
+    setEmailStats(getEmailStats());
+  };
+
+  const handleDeleteSubscriber = (id: string) => {
+    if (window.confirm('Delete this subscriber?')) {
+      deleteSubscriber(id);
+      loadEmailData();
+    }
+  };
+
+  const handleDeleteContact = (id: string) => {
+    if (window.confirm('Delete this message?')) {
+      deleteContactSubmission(id);
+      loadEmailData();
+    }
+  };
+
+  const handleMarkAsRead = (id: string) => {
+    markContactAsRead(id);
+    loadEmailData();
+  };
+
+  const handleMarkAsReplied = (id: string) => {
+    markContactAsReplied(id);
+    loadEmailData();
+  };
+
+  const handleExportSubscribers = () => {
+    const csv = exportSubscribersCSV();
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'newsletter-subscribers.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const loadTrafficLogs = () => {
     try {
@@ -240,6 +288,15 @@ export const Admin: React.FC = () => {
           >
             <Megaphone size={16} /> AdSense
           </button>
+          <button 
+            onClick={() => { setActiveTab('emails'); loadEmailData(); }}
+            className={`px-6 py-2 rounded-xl font-bold text-sm flex items-center gap-2 transition-all ${activeTab === 'emails' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
+          >
+            <Mail size={16} /> Emails
+            {emailStats.unreadContacts > 0 && (
+              <span className="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">{emailStats.unreadContacts}</span>
+            )}
+          </button>
         </div>
 
         {/* AdSense Configuration Panel */}
@@ -384,6 +441,201 @@ export const Admin: React.FC = () => {
                 <a href="https://www.google.com/adsense/new/u/0/pub-9012240625310684/payments" target="_blank" rel="noopener noreferrer"
                    className="flex items-center gap-2 text-indigo-300 hover:text-white transition-colors">
                   <ExternalLink size={14} /> Payment Settings
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Emails Dashboard */}
+        {activeTab === 'emails' && !isCreating && (
+          <div className="space-y-6">
+            {/* Stats Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                    <Users size={20} />
+                  </div>
+                  <span className="text-gray-500 font-medium">Total Subscribers</span>
+                </div>
+                <div className="text-3xl font-black text-gray-900">{emailStats.totalSubscribers}</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-50 text-green-600 rounded-xl flex items-center justify-center">
+                    <Check size={20} />
+                  </div>
+                  <span className="text-gray-500 font-medium">Active</span>
+                </div>
+                <div className="text-3xl font-black text-green-600">{emailStats.activeSubscribers}</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
+                    <MessageSquare size={20} />
+                  </div>
+                  <span className="text-gray-500 font-medium">Contact Messages</span>
+                </div>
+                <div className="text-3xl font-black text-gray-900">{emailStats.totalContacts}</div>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                    <Clock size={20} />
+                  </div>
+                  <span className="text-gray-500 font-medium">New This Week</span>
+                </div>
+                <div className="text-3xl font-black text-amber-600">{emailStats.subscribersThisWeek}</div>
+              </div>
+            </div>
+
+            {/* Newsletter Subscribers */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-bold text-lg flex items-center gap-2">
+                  <Mail className="text-indigo-600" size={20} /> Newsletter Subscribers ({subscribers.length})
+                </h3>
+                <button
+                  onClick={handleExportSubscribers}
+                  disabled={subscribers.length === 0}
+                  className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Download size={16} /> Export CSV
+                </button>
+              </div>
+              
+              {subscribers.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <Mail size={48} className="mx-auto mb-4 opacity-50" />
+                  <p className="font-medium">No subscribers yet</p>
+                  <p className="text-sm">Subscribers will appear here when they sign up via the newsletter form.</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="text-left px-4 py-3 font-bold text-gray-600">Email</th>
+                        <th className="text-left px-4 py-3 font-bold text-gray-600">Subscribed At</th>
+                        <th className="text-left px-4 py-3 font-bold text-gray-600">Source</th>
+                        <th className="text-left px-4 py-3 font-bold text-gray-600">Status</th>
+                        <th className="text-right px-4 py-3 font-bold text-gray-600">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {subscribers.map((sub) => (
+                        <tr key={sub.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-3 font-medium text-gray-900">{sub.email}</td>
+                          <td className="px-4 py-3 text-gray-500">{new Date(sub.subscribedAt).toLocaleDateString()}</td>
+                          <td className="px-4 py-3">
+                            <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold">{sub.source}</span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className={`px-2 py-1 rounded-lg text-xs font-bold ${sub.status === 'active' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                              {sub.status}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            <button
+                              onClick={() => handleDeleteSubscriber(sub.id)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Contact Form Submissions */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                <MessageSquare className="text-purple-600" size={20} /> Contact Messages ({contacts.length})
+                {emailStats.unreadContacts > 0 && (
+                  <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">{emailStats.unreadContacts} new</span>
+                )}
+              </h3>
+              
+              {contacts.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  <MessageSquare size={48} className="mx-auto mb-4 opacity-50" />
+                  <p className="font-medium">No messages yet</p>
+                  <p className="text-sm">Contact form submissions will appear here.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {contacts.map((contact) => (
+                    <div key={contact.id} className={`p-4 rounded-xl border ${contact.status === 'new' ? 'bg-amber-50 border-amber-200' : 'bg-gray-50 border-gray-100'}`}>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="font-bold text-gray-900">{contact.name}</span>
+                            <span className="text-gray-400">|</span>
+                            <a href={`mailto:${contact.email}`} className="text-indigo-600 font-medium hover:underline">{contact.email}</a>
+                            <span className={`px-2 py-0.5 rounded-lg text-xs font-bold ${
+                              contact.status === 'new' ? 'bg-amber-200 text-amber-800' : 
+                              contact.status === 'read' ? 'bg-blue-100 text-blue-700' : 
+                              'bg-green-100 text-green-700'
+                            }`}>
+                              {contact.status}
+                            </span>
+                          </div>
+                          <div className="text-sm text-gray-500 mb-2">
+                            <strong>Type:</strong> {contact.inquiryType} • <strong>Received:</strong> {new Date(contact.submittedAt).toLocaleString()}
+                          </div>
+                          <p className="text-gray-700 text-sm whitespace-pre-wrap">{contact.message}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          {contact.status === 'new' && (
+                            <button
+                              onClick={() => handleMarkAsRead(contact.id)}
+                              className="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg text-xs font-bold hover:bg-blue-200"
+                            >
+                              Mark Read
+                            </button>
+                          )}
+                          {contact.status !== 'replied' && (
+                            <button
+                              onClick={() => handleMarkAsReplied(contact.id)}
+                              className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-bold hover:bg-green-200"
+                            >
+                              Mark Replied
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDeleteContact(contact.id)}
+                            className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Email Integration Note */}
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
+              <h3 className="font-bold text-lg mb-3 text-indigo-900">📧 Email Integration</h3>
+              <p className="text-indigo-700 text-sm mb-4">
+                Emails are currently stored locally in your browser. For production, integrate with:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <a href="https://mailchimp.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-bold">
+                  <ExternalLink size={14} /> Mailchimp
+                </a>
+                <a href="https://convertkit.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-bold">
+                  <ExternalLink size={14} /> ConvertKit
+                </a>
+                <a href="https://formspree.io" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-bold">
+                  <ExternalLink size={14} /> Formspree
                 </a>
               </div>
             </div>
