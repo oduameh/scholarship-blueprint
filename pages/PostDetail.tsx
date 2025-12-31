@@ -53,21 +53,21 @@ export const PostDetail: React.FC = () => {
       "author": {
         "@type": "Person",
         "name": post.author,
-        "url": "https://scholarshipblueprint.com/about"
+        "url": "https://scholarsblueprint.digital/about"
       },
       "publisher": {
         "@type": "Organization",
         "name": "Scholarship Blueprint",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://scholarshipblueprint.com/logo.png"
+          "url": "https://scholarsblueprint.digital/logo.png"
         }
       },
       "datePublished": post.date,
       "dateModified": post.date,
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://scholarshipblueprint.com/#/post/${post.id}`
+        "@id": `https://scholarsblueprint.digital/#/post/${post.id}`
       },
       "keywords": ["scholarship", "fully funded", "2025", "international students", post.category],
       "articleSection": post.category,

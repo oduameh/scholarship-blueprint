@@ -1,11 +1,11 @@
 # Scholarship Blueprint - robots.txt
-# https://scholarshipblueprint.com
+# https://scholarsblueprint.digital
 
 User-agent: *
 Allow: /
 
 # Sitemap (update with your actual domain)
-Sitemap: https://scholarshipblueprint.com/sitemap.xml
+Sitemap: https://scholarsblueprint.digital/sitemap.xml
 
 # Allow Google AdSense crawler
 User-agent: Mediapartners-Google
