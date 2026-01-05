@@ -1,17 +1,28 @@
 import { Post } from './types';
 
+// Import all article content
+import { SCHOLARSHIP_ARTICLES } from './content/articles';
+import { SCHOLARSHIP_ARTICLES_2 } from './content/articles2';
+import { SCHOLARSHIP_ARTICLES_3 } from './content/articles3';
+import { SCHOLARSHIP_ARTICLES_4 } from './content/articles4';
+import { SCHOLARSHIP_ARTICLES_5 } from './content/articles5';
+
 export const CATEGORIES = [
   "UK Scholarships",
   "Canada Scholarships",
   "Germany Scholarships",
   "France Scholarships",
+  "USA Scholarships",
+  "Europe Scholarships",
+  "Asia Scholarships",
+  "Australia Scholarships",
   "PhD Funding",
-  "MBA Grants",
+  "Masters Funding",
   "Undergraduate"
 ];
 
-// Chevening Scholarship Content
-const CHEVENING_CONTENT = `### The Ultimate Chevening Application Blueprint
+// Original detailed content for existing articles
+const CHEVENING_CONTENT = `## Chevening Scholarships 2025/2026: Complete UK Government Application Blueprint
 
 The Chevening Scholarship stands as the UK government's flagship international awards programme, offering future leaders the opportunity to pursue a one-year master's degree at any UK university. For the **2025/2026 academic cycle**, the programme has allocated funding for over 1,500 scholars from across the globe.
 
@@ -73,10 +84,24 @@ Approximately 30% of applicants advance to the interview stage. The interview is
 
 **Demonstrate English Proficiency**: While the IELTS requirement is 6.5 overall with 5.5 in each component, most successful applicants score 7.5 or higher. A strong score reinforces your readiness.
 
-**Connect with Alumni**: The Chevening Alumni Network is active on LinkedIn. Reaching out for informational conversations demonstrates initiative and can provide invaluable insights.`;
+**Connect with Alumni**: The Chevening Alumni Network is active on LinkedIn. Reaching out for informational conversations demonstrates initiative and can provide invaluable insights.
 
-// Vanier CGS Content
-const VANIER_CONTENT = `### Vanier Canada Graduate Scholarship: The $150,000 Blueprint
+### Timeline for 2025/2026 Applications
+
+- **August 2024**: Application opens
+- **November 2024**: Application deadline
+- **November 2024-January 2025**: Initial screening
+- **January-March 2025**: Interviews conducted
+- **May-June 2025**: Final decisions announced
+- **September 2025**: Studies begin in UK
+
+### Final Thoughts: Your Chevening Journey
+
+The Chevening Scholarship represents more than funding—it's an invitation to join a global community of leaders. Your application should demonstrate not just qualifications, but genuine alignment with Chevening's mission of developing future leaders who will return home to create positive change.
+
+If you authentically embody leadership, networking ability, and commitment to your country's development, Chevening offers an exceptional opportunity. The investment in application preparation is substantial, but the returns—academic, professional, and personal—are transformative.`;
+
+const VANIER_CONTENT = `## Vanier Canada Graduate Scholarships: The $150,000 Doctoral Funding Blueprint
 
 The Vanier Canada Graduate Scholarships (Vanier CGS) represent Canada's most prestigious doctoral funding, designed to attract and retain world-class research talent. With an annual value of **$50,000 CAD for three years**, the Vanier stands among the highest-paying PhD scholarships globally.
 
@@ -154,10 +179,21 @@ The critical first barrier is your university's internal competition:
 
 **Start Your Publication Record**: Even one peer-reviewed publication or conference proceeding demonstrates research maturity that distinguishes candidates.
 
-**Prepare for Your Institution**: Universities have different nomination cultures. Connect with recent Vanier recipients at your target institution for insider guidance.`;
+**Prepare for Your Institution**: Universities have different nomination cultures. Connect with recent Vanier recipients at your target institution for insider guidance.
 
-// DAAD EPOS Content
-const DAAD_CONTENT = `### DAAD EPOS Scholarship 2025: Complete German Funding Blueprint
+### Timeline for 2025/2026
+
+- **May-June 2024**: Contact university graduate office about internal deadlines
+- **July-August 2024**: Prepare application materials
+- **September 2024**: University internal deadline (varies)
+- **November 2024**: Federal deadline for nominated candidates
+- **April 2025**: Results announced
+
+### Final Thoughts
+
+The Vanier represents Canada's investment in future research leaders. Success requires demonstrating exceptional capability across all three pillars—academic excellence, research potential, and leadership. The competition is intense, but for candidates who authentically embody these qualities, the Vanier offers unparalleled doctoral support.`;
+
+const DAAD_CONTENT = `## DAAD EPOS Scholarships 2025/2026: Development-Related Postgraduate Courses in Germany
 
 The German Academic Exchange Service (Deutscher Akademischer Austauschdienst, or DAAD) administers Germany's largest international scholarship programme. The **EPOS (Development-Related Postgraduate Courses)** scholarship specifically funds professionals from developing countries pursuing master's or doctoral degrees in fields relevant to national development.
 
@@ -173,7 +209,7 @@ DAAD EPOS targets specific applicant profiles:
 - **Relevance to Home Country**: Your study programme must be directly applicable to your home country's development needs.
 - **Language Proficiency**: Depending on the programme, IELTS 6.0+ or German B1+ level required.
 
-### Financial Package: Comprehensive Support
+### Financial Package: Comprehensive German Support
 
 The DAAD EPOS scholarship provides exceptional coverage:
 
@@ -259,10 +295,15 @@ DAAD operates on strict deadlines:
 
 **Consider German Language Investment**: While not always required, German language skills demonstrate commitment and improve your living experience. Many successful applicants complete A1/A2 before arrival.
 
-**Connect with DAAD Alumni**: The DAAD alumni network is extensive. Alumni from your country can provide specific guidance on the programme and scholarship experience.`;
+**Connect with DAAD Alumni**: The DAAD alumni network is extensive. Alumni from your country can provide specific guidance on the programme and scholarship experience.
 
-// Eiffel Scholarship Content
-const EIFFEL_CONTENT = `### Eiffel Excellence Scholarship: France's Premier Funding Blueprint
+### Final Thoughts
+
+DAAD EPOS Scholarships offer an exceptional pathway for development professionals to pursue advanced education in Germany. The combination of generous funding, practical development focus, and German academic rigor creates a uniquely valuable opportunity.
+
+For candidates with relevant professional experience and clear development goals, DAAD EPOS provides more than a scholarship—it offers transformation of your capability to contribute to your country's development.`;
+
+const EIFFEL_CONTENT = `## Eiffel Excellence Scholarship Program: Study in France 2025/2026
 
 The Eiffel Excellence Scholarship Programme, administered by Campus France and the French Ministry for Europe and Foreign Affairs, represents France's most prestigious international scholarship. Designed to support future foreign leaders in both the private and public sectors, the programme funds **master's (up to €1,181/month) and PhD (up to €1,700/month)** studies at French higher education institutions.
 
@@ -338,31 +379,6 @@ The Eiffel operates through institutional nomination, requiring a two-stage appr
 - Each institution has limited nomination slots (typically 5-20)
 - Campus France compiles all nominations for ministry review
 
-### Application Components: Document Architecture
-
-Your Eiffel nomination package includes:
-
-**1. Campus France Application Form**
-Completed by your nominating institution, not by you directly.
-
-**2. Curriculum Vitae (Europass Format Recommended)**
-French institutions appreciate the standardized Europass CV format.
-
-**3. Academic Transcripts with French Translation**
-All transcripts must be officially translated into French or English.
-
-**4. Motivation Letter (1 page)**
-Focus on:
-- Why France specifically (cultural, academic, or professional reasons)
-- Your contribution to Franco-[your country] relations
-- Career trajectory and how this programme enables it
-
-**5. Research Project (PhD applicants)**
-A 3-5 page research proposal including methodology and French supervisor confirmation.
-
-**6. Letters of Recommendation (2 minimum)**
-Academic references who can attest to your potential for excellence.
-
 ### Timeline: 2025/2026 Cycle
 
 The Eiffel follows a strict annual calendar:
@@ -387,10 +403,15 @@ The Eiffel follows a strict annual calendar:
 
 **Emphasize Future Leadership**: Eiffel explicitly seeks "future leaders." Your application should demonstrate ambition, strategic thinking, and potential for influence.
 
-**Network with Eiffel Alumni**: The Eiffel alumni association organizes events in many countries. Connecting with alumni provides insights and potentially endorsement.`;
+**Network with Eiffel Alumni**: The Eiffel alumni association organizes events in many countries. Connecting with alumni provides insights and potentially endorsement.
 
-// Rhodes Scholarship Content
-const RHODES_CONTENT = `### Rhodes Scholarship: The Oxford Blueprint for Global Leaders
+### Final Thoughts
+
+The Eiffel Excellence Scholarship represents France's investment in future global leaders. For candidates in priority fields who can secure institutional nomination, Eiffel offers exceptional support for study in France.
+
+Success requires strategic programme selection, early institution engagement, and clear articulation of your leadership potential and France-specific motivation.`;
+
+const RHODES_CONTENT = `## Rhodes Scholarship at Oxford University: 2025/2026 Application Blueprint
 
 The Rhodes Scholarship, established in 1903, remains the world's oldest and most prestigious international scholarship programme. Each year, approximately **100 scholars** from over 60 countries join the University of Oxford for fully-funded graduate study. The Rhodes creates a transformative 2-3 year experience combining academic excellence with leadership development.
 
@@ -433,28 +454,6 @@ Rhodes provides comprehensive funding:
 - **Family Allowance**: Additional support for scholars with dependents
 - **Research Grants**: Funding available for fieldwork, conferences, and research travel
 
-### Application Architecture: Building Your Portfolio
-
-The Rhodes application comprises several critical components:
-
-**1. Personal Statement (1,000 words)**
-This is your most important document. It should weave together your intellectual passions, leadership experiences, and future ambitions into a compelling narrative. Avoid listing accomplishments—tell a story.
-
-**2. Essay Questions (Varies by Constituency)**
-Some constituencies require additional essays on specific topics. These are often more reflective or philosophical than the personal statement.
-
-**3. Curriculum Vitae (2 pages maximum)**
-List education, honours, leadership positions, research, publications, athletics, and community service. Demonstrate breadth as well as depth.
-
-**4. Letters of Recommendation (5-8 required)**
-Rhodes requires more references than most scholarships. Include academic referees, employers, coaches, and community leaders who can speak to different dimensions of your candidacy.
-
-**5. Academic Transcripts**
-From all post-secondary institutions attended.
-
-**6. Photograph**
-Professional headshot for identification purposes.
-
 ### The Interview: Final Selection Stage
 
 Rhodes interviews are legendary for their intensity. Expect:
@@ -486,10 +485,24 @@ Rhodes interviews are legendary for their intensity. Expect:
 
 **Develop Your Oxford Plan**: Research specific Oxford programmes, supervisors, and colleges. Demonstrate that you've thought seriously about what you'll study and why Oxford is uniquely suited to your goals.
 
-**Practice Interview Skills**: Mock interviews with professors, alumni, or professional coaches help you articulate your story under pressure. The Rhodes interview is unlike standard job interviews—it requires intellectual agility.`;
+**Practice Interview Skills**: Mock interviews with professors, alumni, or professional coaches help you articulate your story under pressure.
 
-// Pearson Scholarship Content
-const PEARSON_CONTENT = `### Lester B. Pearson International Scholarship: Canada's Premier Undergraduate Award
+### Timeline for 2025/2026
+
+Timelines vary by constituency:
+
+- **June-July 2024**: Applications typically open
+- **September-October 2024**: Application deadlines (varies by country)
+- **October-November 2024**: Interviews and selections
+- **October 2025**: Begin studies at Oxford
+
+### Final Thoughts
+
+The Rhodes Scholarship seeks individuals who combine intellectual excellence with character, leadership, and commitment to service. Your application must demonstrate not only that you have the potential for great achievement, but that you have already begun pursuing it.
+
+For those who authentically embody the Rhodes criteria, this scholarship offers not just funding, but membership in a lifelong community of scholars committed to making a difference in the world.`;
+
+const PEARSON_CONTENT = `## Lester B. Pearson International Scholarship: University of Toronto 2025/2026
 
 The Lester B. Pearson International Scholarship at the University of Toronto recognizes exceptional international students who demonstrate outstanding academic achievement, creativity, and leadership. Named after former Prime Minister and Nobel Peace Prize laureate Lester B. Pearson, this scholarship represents Canada's commitment to global education access.
 
@@ -531,31 +544,6 @@ The Pearson operates through school nomination, creating a distinctive applicati
 - Submit OUAC (Ontario Universities Application Centre) application
 - Complete Pearson-specific supplementary materials
 - Application deadline: Typically mid-January
-
-### Application Architecture: Required Components
-
-Your complete application includes:
-
-**1. OUAC Application**
-Standard Ontario university application submitted through the centralized system.
-
-**2. Academic Records**
-Final year transcripts and predicted grades from your school.
-
-**3. Standardized Tests (If Applicable)**
-Some international curricula require SAT, ACT, or A-Level predicted grades.
-
-**4. English Proficiency**
-IELTS (minimum 6.5), TOEFL (minimum 100), or equivalent for non-native speakers.
-
-**5. Pearson Supplement**
-A written submission exploring your academic interests, extracurricular achievements, and leadership experiences.
-
-**6. School Profile**
-Your school provides context about grading systems, curriculum, and your standing among peers.
-
-**7. Counselor/Principal Recommendation**
-The nominating administrator provides a confidential assessment.
 
 ### Selection Criteria: What Makes a Pearson Scholar?
 
@@ -608,59 +596,43 @@ Mark these critical dates:
 
 **Connect U of T to Your Goals**: Articulate why the University of Toronto specifically—not just Canada generally—is the right place for your undergraduate education.
 
-**Engage with Global Issues**: The Pearson honors a diplomat and peacemaker. Demonstrating awareness of and engagement with global challenges aligns with the scholarship's values.
+### Final Thoughts
 
-**Prepare for Possible Interview**: Some finalists may be invited for virtual interviews. Practice articulating your story, interests, and aspirations clearly and confidently.`;
+The Lester B. Pearson Scholarship honors a Nobel Peace Prize laureate by investing in students who embody academic excellence, creative thinking, and leadership. If you demonstrate these qualities authentically, you may join the prestigious community of Pearson Scholars at the University of Toronto.`;
 
+// Export all posts
 export const MOCK_POSTS: Post[] = [
+  // Original 6 detailed posts
   {
     id: 'uk-1',
     title: 'Chevening Scholarships 2025/2026: UK Government Global Leadership Awards',
     category: 'UK Scholarships',
     excerpt: 'Win a fully-funded masters degree at any UK university. Master the four essays, interview strategies, and application architecture for the 2025/2026 intake cycle.',
     content: CHEVENING_CONTENT,
-    stats: {
-      funding: 'Fully Funded',
-      level: 'Masters',
-      deadline: 'Nov 2025',
-      location: 'United Kingdom'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 15, 2025',
+    stats: { funding: 'Fully Funded', level: 'Masters', deadline: 'Nov 2025', location: 'United Kingdom' },
+    author: 'Editorial Desk', date: 'Jan 15, 2025',
     image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80',
     readTime: '14 min'
   },
   {
     id: 'ca-1',
-    title: 'Vanier Canada Graduate Scholarships (Vanier CGS): $50k Annual Funding 2025',
+    title: 'Vanier Canada Graduate Scholarships (Vanier CGS): $50k Annual PhD Funding 2025',
     category: 'Canada Scholarships',
-    excerpt: "Canada's premier PhD scholarship offering $50,000 annually for three years. Complete application blueprint covering the three pillars of academic excellence, research potential, and leadership.",
+    excerpt: "Canada's premier PhD scholarship offering $50,000 annually for three years. Complete application blueprint covering the three pillars.",
     content: VANIER_CONTENT,
-    stats: {
-      funding: '$50,000/yr',
-      level: 'PhD',
-      deadline: 'Oct 2025',
-      location: 'Canada'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 12, 2025',
+    stats: { funding: '$50,000/yr', level: 'PhD', deadline: 'Oct 2025', location: 'Canada' },
+    author: 'Editorial Desk', date: 'Jan 12, 2025',
     image: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=800&q=80',
     readTime: '15 min'
   },
   {
     id: 'de-1',
-    title: 'DAAD EPOS Scholarships 2025: Development-Related Postgraduate Courses',
+    title: 'DAAD EPOS Scholarships 2025: Development-Related Postgraduate Courses Germany',
     category: 'Germany Scholarships',
-    excerpt: 'Fully funded masters and PhDs in Germany for professionals from developing countries. Comprehensive guide to eligibility, application documents, and strategic positioning.',
+    excerpt: 'Fully funded masters and PhDs in Germany for professionals from developing countries. Complete eligibility and application guide.',
     content: DAAD_CONTENT,
-    stats: {
-      funding: 'Full Stipend',
-      level: 'Masters/PhD',
-      deadline: 'Aug 2025',
-      location: 'Germany'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 10, 2025',
+    stats: { funding: 'Full Stipend', level: 'Masters/PhD', deadline: 'Aug 2025', location: 'Germany' },
+    author: 'Editorial Desk', date: 'Jan 10, 2025',
     image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80',
     readTime: '16 min'
   },
@@ -668,16 +640,10 @@ export const MOCK_POSTS: Post[] = [
     id: 'fr-1',
     title: 'Eiffel Excellence Scholarship Program: Study in France 2025/2026',
     category: 'France Scholarships',
-    excerpt: "The French Ministry of Foreign Affairs' flagship award for future global leaders. Complete blueprint covering institutional nomination, priority disciplines, and strategic success.",
+    excerpt: "French Ministry of Foreign Affairs' flagship award for future global leaders. Complete nomination and application blueprint.",
     content: EIFFEL_CONTENT,
-    stats: {
-      funding: 'Full + Travel',
-      level: 'Masters/PhD',
-      deadline: 'Jan 2026',
-      location: 'France'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 8, 2025',
+    stats: { funding: 'Full + Travel', level: 'Masters/PhD', deadline: 'Jan 2026', location: 'France' },
+    author: 'Editorial Desk', date: 'Jan 8, 2025',
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80',
     readTime: '15 min'
   },
@@ -685,16 +651,10 @@ export const MOCK_POSTS: Post[] = [
     id: 'uk-4',
     title: 'Rhodes Scholarship at Oxford University: 2025/2026 Application Blueprint',
     category: 'UK Scholarships',
-    excerpt: "The world's oldest and most prestigious international scholarship. Master the four Rhodes criteria, interview preparation, and application strategy for Oxford.",
+    excerpt: "The world's oldest and most prestigious international scholarship. Master the four Rhodes criteria and interview preparation.",
     content: RHODES_CONTENT,
-    stats: {
-      funding: 'Full Ride',
-      level: 'Postgrad',
-      deadline: 'Oct 2025',
-      location: 'Oxford, UK'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 5, 2025',
+    stats: { funding: 'Full Ride', level: 'Postgrad', deadline: 'Oct 2025', location: 'Oxford, UK' },
+    author: 'Editorial Desk', date: 'Jan 5, 2025',
     image: 'https://images.unsplash.com/photo-1590013330462-0925916f16f1?auto=format&fit=crop&w=800&q=80',
     readTime: '17 min'
   },
@@ -702,17 +662,232 @@ export const MOCK_POSTS: Post[] = [
     id: 'ca-2',
     title: 'Lester B. Pearson International Scholarship 2025: University of Toronto',
     category: 'Canada Scholarships',
-    excerpt: "Canada's most prestigious undergraduate scholarship covering four years of study at the University of Toronto. Complete guide to nomination, application, and selection criteria.",
+    excerpt: "Canada's most prestigious undergraduate scholarship covering four years of study at the University of Toronto.",
     content: PEARSON_CONTENT,
-    stats: {
-      funding: '100% Covered',
-      level: 'Bachelor',
-      deadline: 'Jan 2026',
-      location: 'Toronto, CA'
-    },
-    author: 'Editorial Desk',
-    date: 'Jan 2, 2025',
+    stats: { funding: '100% Covered', level: 'Bachelor', deadline: 'Jan 2026', location: 'Toronto, CA' },
+    author: 'Editorial Desk', date: 'Jan 2, 2025',
     image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80',
     readTime: '14 min'
+  },
+  // New articles from content files
+  {
+    id: 'uk-2',
+    title: 'Gates Cambridge Scholarship 2025/2026: Complete Application Blueprint',
+    category: 'UK Scholarships',
+    excerpt: 'Join the prestigious Gates Cambridge community at one of the worlds leading universities. Full funding for outstanding scholars committed to improving lives.',
+    content: SCHOLARSHIP_ARTICLES.GATES_CAMBRIDGE,
+    stats: { funding: 'Fully Funded', level: 'Postgrad/PhD', deadline: 'Oct 2025', location: 'Cambridge, UK' },
+    author: 'Editorial Desk', date: 'Dec 28, 2024',
+    image: 'https://images.unsplash.com/photo-1520483601560-389dff434fdf?auto=format&fit=crop&w=800&q=80',
+    readTime: '18 min'
+  },
+  {
+    id: 'uk-3',
+    title: 'Commonwealth Scholarships 2025/2026: UK Funding for Developing Nations',
+    category: 'UK Scholarships',
+    excerpt: 'One of the largest international scholarship programmes supporting 800+ scholars annually from Commonwealth countries.',
+    content: SCHOLARSHIP_ARTICLES.COMMONWEALTH,
+    stats: { funding: 'Fully Funded', level: 'Masters/PhD', deadline: 'Dec 2025', location: 'United Kingdom' },
+    author: 'Editorial Desk', date: 'Dec 25, 2024',
+    image: 'https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=800&q=80',
+    readTime: '16 min'
+  },
+  {
+    id: 'us-1',
+    title: 'Fulbright Scholarship 2025/2026: Complete Guide to US Graduate Study',
+    category: 'USA Scholarships',
+    excerpt: 'The flagship US international exchange program offering fully-funded graduate study at American universities.',
+    content: SCHOLARSHIP_ARTICLES.FULBRIGHT,
+    stats: { funding: 'Fully Funded', level: 'Masters/PhD', deadline: 'Varies', location: 'United States' },
+    author: 'Editorial Desk', date: 'Dec 22, 2024',
+    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80',
+    readTime: '17 min'
+  },
+  {
+    id: 'eu-1',
+    title: 'Erasmus Mundus Joint Master Degrees 2025/2026: Complete EU Funding Blueprint',
+    category: 'Europe Scholarships',
+    excerpt: 'Study at multiple European universities with full EU funding. Over 170 programmes and 3,500 scholarships available.',
+    content: SCHOLARSHIP_ARTICLES.ERASMUS_MUNDUS,
+    stats: { funding: '€49,000+', level: 'Masters', deadline: 'Varies', location: 'Europe (Multiple)' },
+    author: 'Editorial Desk', date: 'Dec 20, 2024',
+    image: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=800&q=80',
+    readTime: '15 min'
+  },
+  {
+    id: 'eu-2',
+    title: 'Swiss Government Excellence Scholarships 2025/2026: Complete Application Guide',
+    category: 'Europe Scholarships',
+    excerpt: 'Pursue doctoral or postdoctoral research at prestigious Swiss institutions with full government funding.',
+    content: SCHOLARSHIP_ARTICLES.SWISS_EXCELLENCE,
+    stats: { funding: 'CHF 1,920/mo', level: 'PhD/Postdoc', deadline: 'Varies', location: 'Switzerland' },
+    author: 'Editorial Desk', date: 'Dec 18, 2024',
+    image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=800&q=80',
+    readTime: '14 min'
+  },
+  {
+    id: 'jp-1',
+    title: 'MEXT Japanese Government Scholarship 2025/2026: Complete Application Blueprint',
+    category: 'Asia Scholarships',
+    excerpt: 'One of the worlds largest government scholarship programs offering 9,000+ fully-funded opportunities in Japan.',
+    content: SCHOLARSHIP_ARTICLES_2.MEXT_JAPAN,
+    stats: { funding: 'Fully Funded', level: 'All Levels', deadline: 'Apr 2025', location: 'Japan' },
+    author: 'Editorial Desk', date: 'Dec 15, 2024',
+    image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80',
+    readTime: '18 min'
+  },
+  {
+    id: 'au-1',
+    title: 'Australia Awards Scholarships 2025/2026: Complete Guide to Australian Government Funding',
+    category: 'Australia Scholarships',
+    excerpt: 'Fully-funded opportunities for development professionals from the Indo-Pacific region at Australian universities.',
+    content: SCHOLARSHIP_ARTICLES_2.AUSTRALIA_AWARDS,
+    stats: { funding: 'AUD 300k+', level: 'Masters/PhD', deadline: 'Apr 2025', location: 'Australia' },
+    author: 'Editorial Desk', date: 'Dec 12, 2024',
+    image: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800&q=80',
+    readTime: '17 min'
+  },
+  {
+    id: 'kr-1',
+    title: 'Korean Government Scholarship Program (KGSP/GKS) 2025/2026: Complete Application Guide',
+    category: 'Asia Scholarships',
+    excerpt: 'Full funding for international students at Korean universities including language training and generous monthly stipend.',
+    content: SCHOLARSHIP_ARTICLES_2.KGSP,
+    stats: { funding: 'Fully Funded', level: 'All Levels', deadline: 'Feb 2025', location: 'South Korea' },
+    author: 'Editorial Desk', date: 'Dec 10, 2024',
+    image: 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=800&q=80',
+    readTime: '16 min'
+  },
+  {
+    id: 'cn-1',
+    title: 'Schwarzman Scholars Program 2025/2026: Chinas Premier Leadership Scholarship',
+    category: 'Asia Scholarships',
+    excerpt: 'One-year fully-funded masters at Tsinghua University for future global leaders. $100,000+ scholarship value.',
+    content: SCHOLARSHIP_ARTICLES_2.SCHWARZMAN_SCHOLARS,
+    stats: { funding: '$100,000+', level: 'Masters', deadline: 'Sep 2025', location: 'Beijing, China' },
+    author: 'Editorial Desk', date: 'Dec 8, 2024',
+    image: 'https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?auto=format&fit=crop&w=800&q=80',
+    readTime: '15 min'
+  },
+  {
+    id: 'se-1',
+    title: 'Swedish Institute Scholarships (SISGP) 2025/2026: Study in Sweden Guide',
+    category: 'Europe Scholarships',
+    excerpt: 'Full funding for global professionals from developing countries pursuing masters degrees in Sweden.',
+    content: SCHOLARSHIP_ARTICLES_3.SWEDISH_INSTITUTE,
+    stats: { funding: 'SEK 12,000/mo', level: 'Masters', deadline: 'Feb 2025', location: 'Sweden' },
+    author: 'Editorial Desk', date: 'Dec 5, 2024',
+    image: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?auto=format&fit=crop&w=800&q=80',
+    readTime: '14 min'
+  },
+  {
+    id: 'nl-1',
+    title: 'Netherlands Government Scholarships (OKP & Holland) 2025/2026',
+    category: 'Europe Scholarships',
+    excerpt: 'Dutch government funding for development professionals and international students at Dutch universities.',
+    content: SCHOLARSHIP_ARTICLES_3.NETHERLANDS,
+    stats: { funding: 'Fully Funded', level: 'Masters', deadline: 'Varies', location: 'Netherlands' },
+    author: 'Editorial Desk', date: 'Dec 3, 2024',
+    image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=80',
+    readTime: '13 min'
+  },
+  {
+    id: 'it-1',
+    title: 'Italian Government Scholarships for Foreign Students 2025/2026',
+    category: 'Europe Scholarships',
+    excerpt: 'Study at Italian universities with government support. Funding for masters, PhD, and research programmes.',
+    content: SCHOLARSHIP_ARTICLES_3.ITALIAN,
+    stats: { funding: '€900/mo', level: 'All Levels', deadline: 'Jul 2025', location: 'Italy' },
+    author: 'Editorial Desk', date: 'Dec 1, 2024',
+    image: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=800&q=80',
+    readTime: '12 min'
+  },
+  {
+    id: 'uk-5',
+    title: 'Clarendon Fund Scholarships at Oxford University 2025/2026',
+    category: 'UK Scholarships',
+    excerpt: 'Oxfords flagship graduate scholarship scheme funding 140+ scholars annually across all disciplines.',
+    content: SCHOLARSHIP_ARTICLES_3.CLARENDON_FUND,
+    stats: { funding: 'Fully Funded', level: 'Postgrad/PhD', deadline: 'Jan 2025', location: 'Oxford, UK' },
+    author: 'Editorial Desk', date: 'Nov 28, 2024',
+    image: 'https://images.unsplash.com/photo-1548793977-f4e9e204f767?auto=format&fit=crop&w=800&q=80',
+    readTime: '11 min'
+  },
+  {
+    id: 'nz-1',
+    title: 'New Zealand Scholarships (Manaaki) 2025/2026: Complete Application Guide',
+    category: 'Australia Scholarships',
+    excerpt: 'New Zealand government funding for students from developing countries pursuing masters and PhD degrees.',
+    content: SCHOLARSHIP_ARTICLES_3.NEW_ZEALAND,
+    stats: { funding: 'NZD 100k+', level: 'Masters/PhD', deadline: 'Mar 2025', location: 'New Zealand' },
+    author: 'Editorial Desk', date: 'Nov 25, 2024',
+    image: 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=800&q=80',
+    readTime: '14 min'
+  },
+  {
+    id: 'us-2',
+    title: 'Marshall Scholarships 2025/2026: UK Study for American Scholars',
+    category: 'UK Scholarships',
+    excerpt: 'British government scholarship enabling outstanding young Americans to pursue graduate degrees at UK universities.',
+    content: SCHOLARSHIP_ARTICLES_4.MARSHALL,
+    stats: { funding: 'Fully Funded', level: 'Postgrad', deadline: 'Sep 2025', location: 'United Kingdom' },
+    author: 'Editorial Desk', date: 'Nov 22, 2024',
+    image: 'https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?auto=format&fit=crop&w=800&q=80',
+    readTime: '13 min'
+  },
+  {
+    id: 'int-1',
+    title: 'Rotary Peace Fellowships 2025/2026: Training Future Peacebuilders',
+    category: 'PhD Funding',
+    excerpt: 'Fully-funded masters and certificate programmes at premier institutions for peace and conflict resolution professionals.',
+    content: SCHOLARSHIP_ARTICLES_4.ROTARY_PEACE,
+    stats: { funding: '$85,000+', level: 'Masters/Cert', deadline: 'May 2025', location: 'Global' },
+    author: 'Editorial Desk', date: 'Nov 20, 2024',
+    image: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80',
+    readTime: '14 min'
+  },
+  {
+    id: 'sg-1',
+    title: 'Singapore International Graduate Award (SINGA) 2025/2026',
+    category: 'Asia Scholarships',
+    excerpt: 'Fully-funded PhD scholarships at Singapores top research institutions. 300+ positions annually.',
+    content: SCHOLARSHIP_ARTICLES_4.SINGA,
+    stats: { funding: 'S$150k+', level: 'PhD', deadline: 'Jan 2025', location: 'Singapore' },
+    author: 'Editorial Desk', date: 'Nov 18, 2024',
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=800&q=80',
+    readTime: '13 min'
+  },
+  {
+    id: 'de-2',
+    title: 'Heinrich Böll Foundation Scholarships 2025/2026: Green Politics and Social Justice',
+    category: 'Germany Scholarships',
+    excerpt: 'German political foundation scholarships for students committed to ecology, democracy, and social justice.',
+    content: SCHOLARSHIP_ARTICLES_4.HEINRICH_BOLL,
+    stats: { funding: '€934+/mo', level: 'All Levels', deadline: 'Mar 2025', location: 'Germany' },
+    author: 'Editorial Desk', date: 'Nov 15, 2024',
+    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=800&q=80',
+    readTime: '12 min'
+  },
+  {
+    id: 'int-2',
+    title: 'Aga Khan Foundation International Scholarship Programme 2025/2026',
+    category: 'Masters Funding',
+    excerpt: 'Need-based scholarships for outstanding students from developing countries with AKDN presence.',
+    content: SCHOLARSHIP_ARTICLES_5.AGA_KHAN,
+    stats: { funding: '50% Grant', level: 'Masters', deadline: 'Mar 2025', location: 'Global' },
+    author: 'Editorial Desk', date: 'Nov 12, 2024',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80',
+    readTime: '14 min'
+  },
+  {
+    id: 'be-1',
+    title: 'Belgian Government Scholarships (ARES) 2025/2026: Complete Application Guide',
+    category: 'Europe Scholarships',
+    excerpt: 'Fully-funded masters programmes at French-speaking Belgian universities for development professionals.',
+    content: SCHOLARSHIP_ARTICLES_5.ARES_BELGIUM,
+    stats: { funding: '€35-45k', level: 'Masters', deadline: 'Feb 2025', location: 'Belgium' },
+    author: 'Editorial Desk', date: 'Nov 10, 2024',
+    image: 'https://images.unsplash.com/photo-1491557345352-5929e343eb89?auto=format&fit=crop&w=800&q=80',
+    readTime: '13 min'
   }
 ];
