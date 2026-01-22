@@ -9,6 +9,8 @@ export interface Post {
   category: string;
   image: string;
   readTime: string;
+  // Official scholarship portal URL
+  officialUrl?: string;
   // New structured fields for SEO and UX
   stats?: {
     funding: string;

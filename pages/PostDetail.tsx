@@ -207,7 +207,7 @@ export const PostDetail: React.FC = () => {
         {/* Article Body */}
         <div className="article-body">
           {/* Status Box */}
-          <div className="bg-[#FAFAFA] border border-[#F2F2F2] rounded-2xl p-8 mb-16 flex flex-wrap gap-8 justify-center">
+          <div className="bg-[#FAFAFA] border border-[#F2F2F2] rounded-2xl p-8 mb-8 flex flex-wrap gap-8 justify-center">
              <div className="text-center">
                 <p className="text-[11px] font-bold text-[#A8A8A8] uppercase tracking-[0.1em] mb-1 font-sans">Blueprint Status</p>
                 <p className="text-[15px] font-bold text-slate-900 flex items-center gap-1.5 justify-center font-sans">
@@ -227,6 +227,26 @@ export const PostDetail: React.FC = () => {
                 <p className="text-[15px] font-bold text-[#C4320A] font-sans">{post.stats?.deadline || 'Rolling'}</p>
              </div>
           </div>
+
+          {/* Official Website Link */}
+          {post.officialUrl && (
+            <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mb-16 text-center">
+              <p className="text-sm text-slate-600 mb-3">
+                <strong>Official Source:</strong> Always verify current requirements and deadlines on the official scholarship portal.
+              </p>
+              <a 
+                href={post.officialUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-700 transition-colors text-sm"
+              >
+                Visit Official Website
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
+          )}
 
           <AdPlaceholder type="content" className="mb-16" />
 

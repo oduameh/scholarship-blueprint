@@ -230,6 +230,111 @@ export const Home: React.FC = () => {
             </div>
           </aside>
         </div>
+
+        {/* Why Scholarship Blueprint Section - Unique Content for AdSense */}
+        <section className="mt-24 bg-white rounded-[3rem] border border-gray-100 p-12 md:p-16 shadow-xl">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] mb-4 block">Why Choose Us</span>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-6">
+                The Scholarship Blueprint Difference
+              </h2>
+              <p className="text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">
+                Understanding why thousands of students trust our scholarship guides over generic advice.
+              </p>
+            </div>
+
+            <div className="prose prose-lg max-w-none text-slate-600">
+              <p className="text-lg leading-relaxed">
+                Every year, billions of dollars in scholarship funding go unclaimed—not because students lack qualifications, but because they lack access to accurate, strategic information. At Scholarship Blueprint, we bridge this critical gap by providing comprehensive, expert-verified guides to the world's most prestigious fully-funded scholarships.
+              </p>
+
+              <p className="text-lg leading-relaxed">
+                Unlike generic scholarship databases that simply list opportunities, our blueprints decode the application architecture of each program. We analyze what selection committees actually look for, dissect successful application strategies, and provide the granular guidance that transforms promising candidates into successful scholars.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-12 not-prose">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <BookOpen size={28} />
+                  </div>
+                  <h3 className="font-black text-slate-900 text-lg mb-2">Expert Research</h3>
+                  <p className="text-slate-500 text-sm">Every guide is researched from official sources, scholarship alumni interviews, and selection committee insights.</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Zap size={28} />
+                  </div>
+                  <h3 className="font-black text-slate-900 text-lg mb-2">Strategic Focus</h3>
+                  <p className="text-slate-500 text-sm">We go beyond eligibility lists to explain what actually distinguishes winning applications from rejections.</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <TrendingUp size={28} />
+                  </div>
+                  <h3 className="font-black text-slate-900 text-lg mb-2">Current & Accurate</h3>
+                  <p className="text-slate-500 text-sm">All information is verified against official scholarship portals and updated for the current application cycle.</p>
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-black text-slate-900 mt-12 mb-4">Our Editorial Methodology</h3>
+              <p className="text-lg leading-relaxed">
+                Each scholarship guide on Scholarship Blueprint follows a rigorous research and verification process. We begin by analyzing official program documentation, including eligibility requirements, selection criteria, and historical acceptance data. We then supplement this with insights from program alumni, information session transcripts, and publicly available selection committee guidance.
+              </p>
+
+              <p className="text-lg leading-relaxed">
+                Our editorial team includes professionals with direct experience in international education, scholarship advising, and academic admissions. We understand that applying for a prestigious scholarship is more than filling out forms—it's about strategically presenting your story, achievements, and potential in ways that resonate with selection committees.
+              </p>
+
+              <h3 className="text-2xl font-black text-slate-900 mt-12 mb-4">What Our Guides Cover</h3>
+              <p className="text-lg leading-relaxed">
+                Every Scholarship Blueprint guide provides comprehensive coverage of key areas that determine application success:
+              </p>
+
+              <ul className="space-y-3 my-6">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-green-500 shrink-0 mt-1" size={20} />
+                  <span><strong>Eligibility Requirements:</strong> Detailed breakdown of who qualifies, including citizenship, age limits, academic thresholds, and work experience requirements.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-green-500 shrink-0 mt-1" size={20} />
+                  <span><strong>Financial Package:</strong> Complete coverage details including tuition, stipend amounts, travel allowances, family support, and hidden costs to consider.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-green-500 shrink-0 mt-1" size={20} />
+                  <span><strong>Application Process:</strong> Step-by-step guidance through each stage, from initial research to final submission and interview preparation.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-green-500 shrink-0 mt-1" size={20} />
+                  <span><strong>Strategic Recommendations:</strong> Insider tips on what selection committees value, common mistakes to avoid, and how to position your application competitively.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-green-500 shrink-0 mt-1" size={20} />
+                  <span><strong>Timeline Planning:</strong> Detailed calendars showing when to start, key deadlines, and optimal preparation schedules.</span>
+                </li>
+              </ul>
+
+              <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 my-12 not-prose">
+                <h4 className="font-black text-slate-900 text-xl mb-4">Important Disclaimer</h4>
+                <p className="text-slate-600 leading-relaxed">
+                  Scholarship Blueprint is an independent educational resource providing research-based guidance for scholarship applicants. We are not affiliated with any scholarship program, university, or government agency. While we strive for accuracy by verifying all information against official sources, scholarship details including eligibility requirements, deadlines, and funding amounts are subject to change by awarding organizations. Always verify current requirements on official scholarship websites before applying.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 justify-center mt-12">
+              <Link to="/how-to-apply" className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-700 transition-colors">
+                How to Apply Guide
+              </Link>
+              <Link to="/faq" className="bg-white text-indigo-600 border-2 border-indigo-600 px-8 py-4 rounded-xl font-bold hover:bg-indigo-50 transition-colors">
+                Read FAQs
+              </Link>
+              <Link to="/resources" className="bg-slate-100 text-slate-700 px-8 py-4 rounded-xl font-bold hover:bg-slate-200 transition-colors">
+                Scholarship Glossary
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

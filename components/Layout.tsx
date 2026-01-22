@@ -25,10 +25,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-10 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
+            <div className="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
               <Link to="/" className="hover:text-indigo-600 transition-colors">Scholarships</Link>
+              <Link to="/how-to-apply" className="hover:text-indigo-600 transition-colors">How to Apply</Link>
+              <Link to="/resources" className="hover:text-indigo-600 transition-colors">Resources</Link>
+              <Link to="/faq" className="hover:text-indigo-600 transition-colors">FAQ</Link>
               <Link to="/about" className="hover:text-indigo-600 transition-colors">About</Link>
-              <Link to="/contact" className="hover:text-indigo-600 transition-colors">Contact</Link>
               <div className="h-4 w-[1px] bg-gray-200"></div>
               <Link to="/admin" className="hover:text-indigo-600 text-gray-300">Portal</Link>
             </div>
@@ -55,6 +57,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {isMenuOpen && (
           <div className="lg:hidden bg-white border-b border-gray-100 py-8 px-6 space-y-6 shadow-2xl animate-in fade-in slide-in-from-top-4">
             <Link to="/" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Scholarships</Link>
+            <Link to="/how-to-apply" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">How to Apply</Link>
+            <Link to="/resources" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Resources</Link>
+            <Link to="/faq" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">FAQ</Link>
             <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">About</Link>
             <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="block text-slate-900 font-black text-xl">Contact</Link>
             <hr className="border-gray-100" />
@@ -99,22 +104,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
             
             <div>
-              <h3 className="font-black text-slate-900 mb-8 uppercase tracking-[0.3em] text-[10px] text-indigo-600">Legal Documents</h3>
+              <h3 className="font-black text-slate-900 mb-8 uppercase tracking-[0.3em] text-[10px] text-indigo-600">Resources</h3>
               <ul className="space-y-4 text-sm font-bold text-slate-500">
-                <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="hover:text-indigo-600 transition-colors">Terms of Service</Link></li>
-                <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">Editorial Guidelines</Link></li>
+                <li><Link to="/how-to-apply" className="hover:text-indigo-600 transition-colors">How to Apply</Link></li>
+                <li><Link to="/faq" className="hover:text-indigo-600 transition-colors">FAQ</Link></li>
+                <li><Link to="/resources" className="hover:text-indigo-600 transition-colors">Glossary & Tools</Link></li>
                 <li><Link to="/about" className="hover:text-indigo-600 transition-colors">About Us</Link></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-black text-slate-900 mb-8 uppercase tracking-[0.3em] text-[10px] text-indigo-600">Global Funding</h3>
+              <h3 className="font-black text-slate-900 mb-8 uppercase tracking-[0.3em] text-[10px] text-indigo-600">Legal</h3>
               <ul className="space-y-4 text-sm font-bold text-slate-500">
-                <li><Link to="/" className="hover:text-indigo-600 transition-colors">UK Master Awards</Link></li>
-                <li><Link to="/" className="hover:text-indigo-600 transition-colors">Canada PhD Grants</Link></li>
-                <li><Link to="/" className="hover:text-indigo-600 transition-colors">EU Excellence Grants</Link></li>
-                <li><Link to="/" className="hover:text-indigo-600 transition-colors">MBA Fellowships</Link></li>
+                <li><Link to="/privacy" className="hover:text-indigo-600 transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-indigo-600 transition-colors">Terms of Service</Link></li>
+                <li><Link to="/contact" className="hover:text-indigo-600 transition-colors">Contact</Link></li>
               </ul>
             </div>
 
